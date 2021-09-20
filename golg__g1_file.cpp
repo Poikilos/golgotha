@@ -143,7 +143,7 @@ class g1_file_manager_class :
 	char current_cd_file[100];
 
 public:
-	int g1_file_manager_class::find_checksum(w32 id)
+	int find_checksum(w32 id)
 	{
 		g1_dir_entry find;
 
