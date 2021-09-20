@@ -17,6 +17,7 @@
 #include "error/error.h"
 #include "gui/smp_dial.h"
 #include "octree.h"
+#include "math/transform.h"  // i4_transform_class, trans_3x3 (WIN32), transform_3x3
 
 li_object *m1_wireframe_toggle(li_object * o, li_environment * env)
 {
@@ -457,7 +458,7 @@ li_object* m1_rotate_object(li_object * o, li_environment *env)
 	for (int i=0; i<m1_info.obj->num_vertex; i++,v++)
 	{
 		i4_3d_vector result;
-		transform.trans_3x3(v->v, result);
+		transform.transform_3x3(v->v, result);
 		v->v.x=result.x;
 		v->v.y=result.y;
 		v->v.z=result.z;
@@ -478,13 +479,13 @@ li_object *m1_move_point(li_object * o, li_environment * env)
 	g1_vert_class * v=m1_info.obj->get_verts(m1_info.current_animation,
 											 m1_info.current_frame);
 	int idx=m1_info.selected_points[0];
-	
+
 	i4_3d_vector move=m1_vector_input(
 		"Enter the new location of the selected point",
 		i4_3d_vector(v[idx].v.x,v[idx].v.y,v[idx].v.z));
 	//This one needs to be regenerated afterwards.
 	li_call("remove_octree",0,0);
-	
+
 	v[idx].v.x=move.x;
 	v[idx].v.y=move.y;
 	v[idx].v.z=move.z;
