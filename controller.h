@@ -45,6 +45,12 @@ class g1_saver_class;
 class g1_object_controller_class;
 
 
+namespace golg { // Since the methods also exist in std, declare a namespace.
+	inline float fmin(float a, float b);
+	inline float fmax(float a, float b);
+}
+
+
 class g1_controller_global_id_reset_notifier :
 	public g1_global_id_reset_notifier
 {

@@ -1262,14 +1262,15 @@ void g1_object_controller_class::roll(i4_float r)
 	view.roll(r);
 	request_redraw(i4_F);
 }
-
-inline float fmin(float a, float b)
-{
-	return (a<b) ? a : b;
-}
-inline float fmax(float a, float b)
-{
-	return (a>b) ? a : b;
+namespace golg { // Since the methods also exist in std, declare a namespace.
+	inline float fmin(float a, float b)
+	{
+		return (a<b) ? a : b;
+	}
+	inline float fmax(float a, float b)
+	{
+		return (a>b) ? a : b;
+	}
 }
 
 void g1_object_controller_class::setup_clip()
@@ -1290,12 +1291,12 @@ void g1_object_controller_class::setup_clip()
 	bbox.max = camera_point[0];
 	for (i=1; i<NUM_VIEW_POINTS; i++)
 	{
-		bbox.min.x = fmin(bbox.min.x, camera_point[i].x);
-		bbox.min.y = fmin(bbox.min.y, camera_point[i].y);
-		bbox.min.z = fmin(bbox.min.z, camera_point[i].z);
-		bbox.max.x = fmax(bbox.max.x, camera_point[i].x);
-		bbox.max.y = fmax(bbox.max.y, camera_point[i].y);
-		bbox.max.z = fmax(bbox.max.z, camera_point[i].z);
+		bbox.min.x = std::fmin(bbox.min.x, camera_point[i].x);
+		bbox.min.y = std::fmin(bbox.min.y, camera_point[i].y);
+		bbox.min.z = std::fmin(bbox.min.z, camera_point[i].z);
+		bbox.max.x = std::fmax(bbox.max.x, camera_point[i].x);
+		bbox.max.y = std::fmax(bbox.max.y, camera_point[i].y);
+		bbox.max.z = std::fmax(bbox.max.z, camera_point[i].z);
 	}
 
 	// Calculate plane equations and determine N & P points for planes

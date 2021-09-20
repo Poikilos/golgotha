@@ -65,15 +65,6 @@ pf_gather_objects("gather_objects");
 
 i4_image_class *render_map_section(int x1, int y1, int x2, int y2, int im_w, int im_h);
 
-inline float fmin(float a, float b)
-{
-	return (a<b) ? a : b;
-}
-inline float fmax(float a, float b)
-{
-	return (a>b) ? a : b;
-}
-
 class texture_context
 {
 public:
@@ -277,8 +268,8 @@ public:
 				make_lod_node(&p->child[0], p, x1,y1,x2,my, level+1);
 				make_lod_node(&p->child[1], p, x1,my,x2,y2, level+1);
 			}
-			p->z1 = fmin(p->child[0]->z1, p->child[1]->z1);
-			p->z2 = fmax(p->child[0]->z2, p->child[1]->z2);
+			p->z1 = std::fmin(p->child[0]->z1, p->child[1]->z1);
+			p->z2 = std::fmax(p->child[0]->z2, p->child[1]->z2);
 
 			// area metric
 			p->metric = p->child[0]->metric + p->child[1]->metric;
@@ -292,12 +283,12 @@ public:
 			z22 = g1_get_map()->vertex(x2,y2)->get_height();
 
 			p->z1 = p->z2 = z11;
-			p->z1 = fmin(p->z1, z21);
-			p->z2 = fmax(p->z2, z21);
-			p->z1 = fmin(p->z1, z12);
-			p->z2 = fmax(p->z2, z12);
-			p->z1 = fmin(p->z1, z22);
-			p->z2 = fmax(p->z2, z22);
+			p->z1 = std::fmin(p->z1, z21);
+			p->z2 = std::fmax(p->z2, z21);
+			p->z1 = std::fmin(p->z1, z12);
+			p->z2 = std::fmax(p->z2, z12);
+			p->z1 = std::fmin(p->z1, z22);
+			p->z2 = std::fmax(p->z2, z22);
 
 			// area metric
 			i4_float dz1,dz2; //Updated by Forum
