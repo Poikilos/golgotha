@@ -31,7 +31,54 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+// #define __STDC_WANT_LIB_EXT1__ 1
+// ^ Get strncpy_s (See <https://en.cppreference.com/w/c/string/byte/strncpy>)
 #include <string.h>
+
+#ifndef __STDC_LIB_EXT1__
+// This is not defined unless strncpy_s is present.
+// - strncpy_s isn't in gcc 8.3.0 even using -std=c++11 or std=c++17
+// - See another implementation in strncpy_s.h in safec
+int strncpy_s(char * dest, size_t destsz, const char * src, size_t count) {
+	/*
+	See https://en.cppreference.com/w/c/string/byte/strncpy
+	- upstream is:
+	  errno_t strncpy_s(
+	    char *restrict dest,
+	    rsize_t destsz,
+	    const char *restrict src,
+	    rsize_t count
+	  )
+	- restrict makes sure that the pointers are unique.
+	*/
+	size_t i = 0;
+	size_t destLastSz = destsz - 1; // the last place '\0' can fit
+	if (src == nullptr) {
+		return 1;
+	}
+	if (dest == nullptr) {
+		return 2;
+	}
+	int errno = 0;
+	if (count > destLastSz) {
+		count = destLastSz;
+		errno = 3;
+	}
+	while (i < destLastSz) {
+		if (src[i] == '\0') {
+			// This is ok since count is a "maximum" according to
+			// <https://en.cppreference.com/w/c/string/byte/strncpy>
+			dest[i] = '\0';
+			return errno;
+		}
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return errno;
+}
+#endif
 
 #if _MSC_VER>1100
 #pragma warning(disable : 4244 ; disable : 4305)
@@ -2438,7 +2485,7 @@ void data_init( void )
 	{
 		for ( ivert = 0; ivert < ORDER_MAX; ivert++ )
 		{
-			// Standard distribution 
+			// Standard distribution
 			if (ivert == 0 || ivert > 3)
 			{
 				for (i = 0; i < 2; i++)
@@ -11339,7 +11386,7 @@ float normalize_texture_coordinates(float vt)
 			vt = mod;
 		}
 	}
-	
+
 	return vt;
 }
 /******************************************************************************/
