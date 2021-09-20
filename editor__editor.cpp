@@ -7182,7 +7182,7 @@ public:
 
 	}
 
-	void g1_time_scroller::receive_event(i4_event * ev)
+	void receive_event(i4_event * ev)
 	{
 
 		switch (ev->type())
@@ -7941,7 +7941,7 @@ public:
 
 		// create text fields so we know how many items fit on the screen
 		int t;
-		int y; 
+		int y;
 		for (t=0, y=deco->height()+2; y < height() && t < (w16)selectable.size(); y++)
 		{
 			text.add(new i4_text_item_class(g1_object_type_array[selectable[t]]->name(),

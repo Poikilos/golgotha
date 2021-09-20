@@ -281,7 +281,7 @@ public:
 						  i4_float ysize, i4_float zsize, i4_transform_class * transform,
 						  w8 &ANDCODE, w8 &ORCODE);
 
-	i4_bool g1_render_class::prepare_octree_rendering(i4_array<g1_quad_class *> &qif,
+	i4_bool prepare_octree_rendering(i4_array<g1_quad_class *> &qif,
 													  g1_quad_object_class * obj,
 													  g1_vert_class * src_vert,
 													  i4_transform_class * tf,
