@@ -2702,10 +2702,10 @@ void *eval_sys_function(lisp_sys_function * fun, void * arg_list, li_environment
 				char * haystack=lstring_value(eval(CAR(arg_list)));
 				char * needle=lstring_value(arg1);
 
-				char * find=strstr(haystack,needle);
-				if (find)
+				char * foundPtr=strstr(haystack,needle);
+				if (foundPtr)
 				{
-					ret=new_lisp_number(find-haystack);
+					ret=new_lisp_number((int)(foundPtr-haystack));
 				}
 				else
 				{
