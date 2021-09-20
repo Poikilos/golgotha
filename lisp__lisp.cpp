@@ -55,7 +55,6 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-
 char li_last_file[200];
 int li_last_line=0;
 static w8 li_recursive_error=0;
@@ -3567,10 +3566,10 @@ void li_mark_memory_region(li_list * * start, li_list * * end,
 		{
 			li_list* p=(*s);
 			wptr w=(wptr)(p);
-			if ( (w&mask)==0 &&  
-				p>=c1 && 
-				p<c2 && 
-				(p)->type() && 
+			if ( (w&mask)==0 &&
+				p>=c1 &&
+				p<c2 &&
+				(p)->type() &&
 				!(p)->is_marked())
 			{
 				li_get_type( (p)->unmarked_type() )->mark(p,1);
@@ -4405,6 +4404,7 @@ void li_memory_manager_class::init()
 	//You should be alarmed if it does NOT show up... See what the code does in that case ;-)
 	if (sizeof(li_list)!=16 || sizeof(li_free8_list)!=8)
 	{
+		printf("lisp__lisp.cpp: sizeof(li_list):%d (should be 16); sizeof(li_free8_list):%d (should be 8)", sizeof(li_list), sizeof(li_free8_list));
 		li_error(0, "FATAL: Lisp-Engine memory init: Data size mismatch error, cannot continue.");
 		exit(95);
 	}

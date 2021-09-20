@@ -243,7 +243,8 @@ bool CDataFile::Load(t_Str szFileName)
 	}
 	else
 	{
-		Report(E_INFO, "[CDataFile::Load] Unable to open file. Does it exist?");
+		Report(E_INFO, "[CDataFile::Load] Unable to open file. Does it exist? Path:");
+		Report(E_INFO, szFileName.c_str());
 		return false;
 	}
 
