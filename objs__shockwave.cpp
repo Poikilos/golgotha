@@ -222,26 +222,26 @@ i4_bool g1_shockwave_class::occupy_location()
 				v->increment_height(vo->displacement);
 
 				w32 old_rgb=v->get_dynamic_light();
-				sw32 r,g,b, or,og,ob;
+				sw32 r,g,b, oR,oG,oB;
 				r=i4_f_to_i(red_intensity*multiplier*255);
 				g=i4_f_to_i(green_intensity*multiplier*255);
 				b=i4_f_to_i(blue_intensity*multiplier*255);
 
-				or=(old_rgb>>16)&255;      // grab the old light values
-				og=(old_rgb>>8)&255;
-				ob=(old_rgb)&255;
+				oR=(old_rgb>>16)&255;      // grab the old light values
+				oG=(old_rgb>>8)&255;
+				oB=(old_rgb)&255;
 
-				if (r+or>255)
+				if (r+oR>255)
 				{
-					r=255-or;
+					r=255-oR;
 				}                           // adjust for overflow
-				if (g+og>255)
+				if (g+oG>255)
 				{
-					g=255-og;
+					g=255-oG;
 				}
-				if (b+ob>255)
+				if (b+oB>255)
 				{
-					b=255-ob;
+					b=255-oB;
 				}
 
 				vo->color = (r<<16) | (g<<8) | b;
