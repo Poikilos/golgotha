@@ -29,6 +29,9 @@
 #include "critical_map.h"
 #include "memory/dynque.h"
 #include "memory/array.h"
+// #include "controller.h" // otherwise g1_object_controller_class has not been declared
+// ^ would cause "./g1_render.h:284:10: error: extra qualification ‘g1_render_class::’ on member ‘prepare_octree_rendering’ [-fpermissive]" so:
+class g1_object_controller_class;
 //#include "editor/dialogs/path_win.h"
 
 //class g1_map_cell_class;
