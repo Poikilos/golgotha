@@ -332,7 +332,7 @@ void r1_dx9_texture_class::init()
 	no_of_textures_loaded = 0;
 }
 
-void reset_decompressed_cache9(void);
+void reset_decompressed_cache(void);
 
 void r1_dx9_texture_class::uninit()
 {
@@ -350,7 +350,7 @@ void r1_dx9_texture_class::uninit()
 		next_frame();
 		i4_thread_sleep(20);
 	}
-	reset_decompressed_cache9();
+	reset_decompressed_cache();
 	r1_texture_manager_class::uninit();
 	if (tex_no_heap)
 	{
@@ -610,7 +610,7 @@ r1_dx9_texture_class::used_node * r1_dx9_texture_class::make_surfaces_for_load(
 
 
 //i4_directory_struct *decompdir=NULL;
-void reset_decompressed_cache9(void)
+void reset_decompressed_cache(void)
 //This function is to be called whenever the decompressed dir changes
 //i.e after rebuilding the texture cache.
 {
