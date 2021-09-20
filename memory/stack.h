@@ -73,7 +73,7 @@ public:
 
 	int push(T item)
 	{
-		return add(item);
+		return i4_array<T>::add(item);
 	};
 
 	T& top()
