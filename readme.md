@@ -1,5 +1,5 @@
 # Golgotha
-For more info, read Manual.doc.
+For more info, read [Manual.doc](Documentation/Manual.doc).
 
 Setup instructions (from cd): Just run setup.exe in the same directory
 as golgotha resides. Important: If you don't install the textures, the
@@ -15,6 +15,44 @@ user-writeable.
 
 A message saying that some write-permissions don't exist when running
 for the first time can be ignored.
+
+
+## License
+See [License.rtf](Documentation/License.rtf) and the "[Credits](#Credits)" section below.
+
+
+## Compile
+
+### Install Dependencies
+Compiling requires 32-bit at this time due to the LISP implementation (See issue #13).
+
+Follow the directions in the subsection for your distro to complete the following general steps:
+- Resolve
+- Resolve issue #16 "video__x11__mitshm.o: undefined reference to symbol 'XShmPutImage'" and "/usr/bin/ld: /lib/libXext.so.6: error adding symbols: DSO missing from command line" by installing the i686 architecture variant of the libX11 extensions development package.
+
+
+#### Compile on Ubuntu/Debian/Devuan
+This does not work, at least on Devuan 4 (chimera) which is based on
+Debian 11 (bullseye). The reason it cannot work is that the repo is
+missing the following dependencies: libglx0:i686, libgl1:i686,
+libglx-mesa0:i686, libgl1-mesa-dri:i686.
+```bash
+sudo apt-get update
+sudo apt-get install -y libglu1-mesa-dev:i686
+```
+
+#### Compile on Fedora
+```bash
+sudo dnf groupinstall 'Development Tools' -y
+sudo dnf install -y glibc-devel.i686 mesa-libGL-devel.i686 xorg-x11-server-devel.i686 libXext-devel.i686 libXxf86vm-devel.i686
+```
+
+## Use
+If the program doesn't run, see the
+[issues](https://github.com/poikilos/golgotha/issues) page of the
+Poikilos fork of Golgotha and the "[Project Status](#project-status)"
+section below.
+
 
 ## Parameters
 For unix type systems, the registry is replaced by a file called "golgotha.ini".
@@ -143,8 +181,10 @@ See file__file.cpp for debugging options.
 - `FULL_COEF_BUFFER_SUPPORTED`
 - Many more in loaders__jpg__jcapistd.cpp
 
+
 ## Project Status
 - See "Tasks" in [Documentation/development.md](Documentation/development.md).
+
 
 ## Credits
 People that need to be mentioned in the credits:
